@@ -4,6 +4,7 @@ import 'package:covid19/widgets/summary_item.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:covid19/models/summary.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HomePage extends StatelessWidget {
   late SummaryModel dataSummary;
@@ -14,6 +15,7 @@ class HomePage extends StatelessWidget {
   static const lightColor = Color(0xFFEEEEEE);
 
   getSummary() async {
+    await Future.delayed(Duration(seconds: 3));
     var response = await http.get(Uri.parse("https://covid19.mathdro.id/api"));
 
     Map<String, dynamic> data =
@@ -38,16 +40,25 @@ class HomePage extends StatelessWidget {
         future: getSummary(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-                child: Text(
-              "Loading...",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold),
-            ));
+            return Shimmer.fromColors(
+              baseColor: Colors.grey[100]!,
+              highlightColor: Colors.grey[300]!,
+              child: Column(
+                children: [
+                  SummaryItem(
+                    lightColor: lightColor,
+                    title: "...",
+                    value: "...",
+                  ),
+                  SummaryItem(
+                    lightColor: lightColor,
+                    title: "...",
+                    value: "...",
+                  ),
+                ],
+              ),
+            );
           }
-
           return Column(
             children: [
               SummaryItem(
