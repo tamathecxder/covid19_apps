@@ -38,7 +38,14 @@ class HomePage extends StatelessWidget {
         future: getSummary(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: Text("Loading..."));
+            return Center(
+                child: Text(
+              "Loading...",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold),
+            ));
           }
 
           return Column(
