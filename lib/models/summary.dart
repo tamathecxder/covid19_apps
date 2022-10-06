@@ -1,15 +1,16 @@
 // To parse this JSON data, do
 //
-//     final userModel = userModelFromJson(jsonString);
+//     final summaryModel = summaryModelFromJson(jsonString);
 
 import 'dart:convert';
 
-UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
+SummaryModel summaryModelFromJson(String str) =>
+    SummaryModel.fromJson(json.decode(str));
 
-String userModelToJson(UserModel data) => json.encode(data.toJson());
+String summaryModelToJson(SummaryModel data) => json.encode(data.toJson());
 
-class UserModel {
-  UserModel({
+class SummaryModel {
+  SummaryModel({
     required this.confirmed,
     required this.recovered,
     required this.deaths,
@@ -33,7 +34,7 @@ class UserModel {
   CountryDetail countryDetail;
   DateTime lastUpdate;
 
-  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
+  factory SummaryModel.fromJson(Map<String, dynamic> json) => SummaryModel(
         confirmed: Confirmed.fromJson(json["confirmed"]),
         recovered: Confirmed.fromJson(json["recovered"]),
         deaths: Confirmed.fromJson(json["deaths"]),
